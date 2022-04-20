@@ -18,17 +18,30 @@ import java.net.Socket;
 
 public class MusicMixRemote extends
         UnicastRemoteObject implements MusicMixInterface {
+      JFXPanel j=new JFXPanel();
+             String urip=new File("fivo.mp3").toURI().toString();
+             MediaPlayer mp = new MediaPlayer(new Media(urip));
 
     MusicMixRemote() throws RemoteException {
         super();
     }
 
     @Override
-    public void playAudio(String audioName) {
+    public void playAudio() {
        try {
-            JFXPanel j=new JFXPanel();
-            String urip=new File("fivo.mp3").toURI().toString();
-            new MediaPlayer(new Media(urip)).play();    
+      
+            mp.play();    
+        } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,ex);
+        }
+    }
+    
+     @Override
+    public void stopAudio() {
+       try {
+           // String urip=new File("fivo.mp3").toURI().toString();
+           // new MediaPlayer(new Media(urip))
+                    mp.stop();    
         } catch(Exception ex){
                 JOptionPane.showMessageDialog(null,ex);
         }
