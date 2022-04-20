@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.rmi.*;
 import java.rmi.server.*;
@@ -17,36 +16,35 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MusicMixRemote extends
-        UnicastRemoteObject implements MusicMixInterface {
-      JFXPanel j=new JFXPanel();
-             String urip=new File("fivo.mp3").toURI().toString();
-             MediaPlayer mp = new MediaPlayer(new Media(urip));
+UnicastRemoteObject implements MusicMixInterface {
+  JFXPanel j = new JFXPanel();
 
-    MusicMixRemote() throws RemoteException {
-        super();
+  MusicMixRemote() throws RemoteException {
+    super();
+  }
+
+  @Override
+  public void playAudio(String audioName) {
+    try {
+      String urip = new File(audioName).toURI().toString();
+      MediaPlayer mp = new MediaPlayer(new Media(urip));
+
+      mp.play();
+    } catch (Exception ex) {
+      JOptionPane.showMessageDialog(null, ex);
+    }
+  }
+
+  @Override
+  public void stopAudio(String audioName) {
+    try {
+      String urip = new File(audioName).toURI().toString();
+      MediaPlayer mp = new MediaPlayer(new Media(urip));
+      mp.stop();
+    } catch (Exception ex) {
+      JOptionPane.showMessageDialog(null, ex);
     }
 
-    @Override
-    public void playAudio() {
-       try {
-      
-            mp.play();    
-        } catch(Exception ex){
-                JOptionPane.showMessageDialog(null,ex);
-        }
-    }
-    
-     @Override
-    public void stopAudio() {
-       try {
-           // String urip=new File("fivo.mp3").toURI().toString();
-           // new MediaPlayer(new Media(urip))
-                    mp.stop();    
-        } catch(Exception ex){
-                JOptionPane.showMessageDialog(null,ex);
-        }
-        
-        
-    }
-   
+  }
+
 }

@@ -22,6 +22,7 @@ public class Clinet extends javax.swing.JFrame {
         ipAddressTf = new javax.swing.JTextField();
         portNumTf = new javax.swing.JTextField();
         stopAudioBtn = new javax.swing.JButton();
+        audioNameTf = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,6 +54,13 @@ public class Clinet extends javax.swing.JFrame {
             }
         });
 
+        audioNameTf.setText("Audio name");
+        audioNameTf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                audioNameTfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,16 +68,17 @@ public class Clinet extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(playAudioBtn))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(122, 122, 122)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ipAddressTf, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(portNumTf, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(playAudioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(stopAudioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(147, Short.MAX_VALUE))
+                            .addComponent(stopAudioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(ipAddressTf, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                .addComponent(portNumTf, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                .addComponent(audioNameTf)))))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,11 +87,13 @@ public class Clinet extends javax.swing.JFrame {
                 .addComponent(ipAddressTf, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(portNumTf, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(audioNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(playAudioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(stopAudioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -91,11 +102,10 @@ public class Clinet extends javax.swing.JFrame {
     private void playAudioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAudioBtnActionPerformed
         try {
             stub = (MusicMixInterface) Naming.lookup("rmi://"+ipAddressTf.getText()+":"+portNumTf.getText()+"/MUSIC");
-            stub.playAudio();
+            stub.playAudio(audioNameTf.getText());
         } catch (Exception e) {
             System.out.println(e);
         }
-       
     }//GEN-LAST:event_playAudioBtnActionPerformed
 
         
@@ -109,15 +119,17 @@ public class Clinet extends javax.swing.JFrame {
     }//GEN-LAST:event_portNumTfActionPerformed
 
     private void stopAudioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopAudioBtnActionPerformed
-                                       
-        try {
-           
-            stub.stopAudio();
+                             
+        try {     
+            stub.stopAudio(audioNameTf.getText());
         } catch (Exception e) {
             System.out.println(e);
         }
-    
     }//GEN-LAST:event_stopAudioBtnActionPerformed
+
+    private void audioNameTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_audioNameTfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_audioNameTfActionPerformed
 
 
     public static void main(String args[]) throws LineUnavailableException {
@@ -130,6 +142,7 @@ public class Clinet extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField audioNameTf;
     private javax.swing.JTextField ipAddressTf;
     private javax.swing.JButton playAudioBtn;
     private javax.swing.JTextField portNumTf;
